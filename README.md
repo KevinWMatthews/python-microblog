@@ -23,3 +23,8 @@ Use flask to run the application:
 export FLASK_APP=microblog.py
 flask run
 ```
+
+To run the application in debug mode,
+```
+export FLASK_DEBUG=true
+```
