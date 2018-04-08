@@ -26,5 +26,5 @@ flask run
 
 To run the application in debug mode,
 ```
-export FLASK_DEBUG=true
+export FLASK_DEBUG=1
 ```
