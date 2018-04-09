@@ -6,3 +6,4 @@ app.config.from_object(Config)
 
 # Import at the bottom of the script to mitigate issues with circular imports
 from app import routes
+from app import forms
