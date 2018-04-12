@@ -1,6 +1,6 @@
 # Microblog
 
-Following allow Miguel Grinberg's Flask Mega-tutorial.
+Follow the steps in Miguel Grinberg's Flask Mega-tutorial to create a microblog.
 
 ## Getting started
 
