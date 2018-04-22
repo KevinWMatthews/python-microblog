@@ -6,3 +6,6 @@ __pycache__/
 
 # Ignore database binary blob
 app.db
+
+# Ignore python cache files
+*.pyc
