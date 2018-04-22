@@ -40,7 +40,19 @@ export FLASK_DEBUG=1
 
 ### Database migration
 
-Set up migration scripts (be sure the environment variable `FLASK_APP` is set):
+Set up migration stuff (be sure the environment variable `FLASK_APP` is set):
 ```
 flask db init
+```
+
+Generate the migration scripts:
+```
+flask db migrate
+```
+
+Run the migration:
+```
+flask db upgrade
+# or to revert
+flask db downgrade
 ```
