@@ -37,3 +37,10 @@ To run the application in debug mode, set another environment variable:
 ```
 export FLASK_DEBUG=1
 ```
+
+### Database migration
+
+Set up migration scripts (be sure the environment variable `FLASK_APP` is set):
+```
+flask db init
+```
