@@ -25,18 +25,31 @@ $ pip install -r requirements.txt
 
 ### Run
 
-I'm using a `.flaskenv` file that is parsed by `python-dotenv`.
-This sets the `FLASK_APP` environment variable for us.
+I'm using a `.flaskenv` and `.env` file that is parsed by `python-dotenv`.
+This sets the `FLASK_APP` and `FLASK_ENV` environment variables for us.
+Be sure you don't set them yourself! The command line/current environment takes precedence.
 
 Run using simply:
 ```
 $ flask run
 ```
 
-To run the application in debug mode, set another environment variable:
+To run the application in debug mode, set another file:
 ```
+$ vim .env
+FLASK_ENV=development
+```
+
+Or set another environment variable:
+```
+# Flask 1.0
+$ export FLASK_ENV=development
+# defaults to 'production', I believe
+
+# Flask 0.12
 $ export FLASK_DEBUG=1
 ```
+
 
 ### Database migration
 

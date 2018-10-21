@@ -9,3 +9,6 @@ app.db
 
 # Ignore python cache files
 *.pyc
+
+# Ignore configuration files
+.env
