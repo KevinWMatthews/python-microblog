@@ -77,3 +77,14 @@ If you need a shell into your current flask environment, simply run:
 $ flask shell
 ```
 The shell context is configurable in `microblog.py`.
+
+
+### Mail Server
+
+You can run a dummy mail server locally using:
+```
+$ python -m smtpd -n -c DebuggingServer localhost:8025
+```
+
+This will run a smtp server on your machine. It will receive e-mails and
+print them to the console.
