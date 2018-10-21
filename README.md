@@ -58,3 +58,11 @@ $ flask db upgrade
 # or to revert
 $ flask db downgrade
 ```
+
+### Experimentation
+
+If you need a shell into your current flask environment, simply run:
+```
+$ flask shell
+```
+The shell context is configurable in `microblog.py`.
