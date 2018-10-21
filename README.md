@@ -25,10 +25,8 @@ $ pip install -r requirements.txt
 
 ### Run
 
-Set the flask application in the environment:
-```
-$ export FLASK_APP=microblog.py
-```
+I'm using a `.flaskenv` file that is parsed by `python-dotenv`.
+This sets the `FLASK_APP` environment variable for us.
 
 Run using simply:
 ```
