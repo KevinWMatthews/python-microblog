@@ -5,6 +5,12 @@ from flask_login import UserMixin
 from app import login
 from hashlib import md5
 
+# Association table for many-to-many relationship
+followers = db.Table('followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -18,6 +24,24 @@ class User(UserMixin, db.Model):
     #   One:    user.posts
     #   Many:   post.author (defined by backref)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+
+    # Define a many-to-many relationship
+    # Relates this User (the follower) to other Users (the followed)
+    #   'User'          -> the type we're relating to (following)
+    #   secondary       -> the association table
+    #   primaryjoin     -> condition linking this User (follower) with association table
+    #   secondaryjoin   -> condition linking other User(s) (followed) with association table
+    #   backref         -> how the followed User(s) find this User
+    #
+    # The Table class provides a method 'c' that is used to access the column.
+    followed = db.relationship(
+        'User',
+        secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.follower_id == id),
+        backref=db.backref('followers', lazy='dynamic'),
+        lazy='dynamic'
+    )
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
