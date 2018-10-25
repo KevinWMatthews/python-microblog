@@ -8,7 +8,7 @@ from hashlib import md5
 # Association table for many-to-many relationship
 followers = db.Table('followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id')),
 )
 
 class User(UserMixin, db.Model):
@@ -38,9 +38,9 @@ class User(UserMixin, db.Model):
         'User',
         secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
-        secondaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'),
-        lazy='dynamic'
+        lazy='dynamic',
     )
 
     def __repr__(self):
@@ -66,18 +66,16 @@ class User(UserMixin, db.Model):
             self.followed.remove(user)
 
     def is_following(self, user):
-        result = self.followed
-            .filter(followers.c.followed_id == user.id)
-            .count()
+        result = self.followed.filter(
+            followers.c.followed_id == user.id).count()
         return result > 0
 
     def followed_posts(self):
-        followed = Post.query
-            .join(followers, (followers.c.followed_id == Post.user_id))
-            .filter(followers.c.follower_id == self.id)
-        own = Post.query.filter_by(userid=self.id)
-        return followed.union(own)
-            .order_by(Post.timestamp.desc())
+        followed = Post.query.join(
+            followers, (followers.c.followed_id == Post.user_id)).filter(
+                followers.c.follower_id == self.id)
+        own = Post.query.filter_by(user_id=self.id)
+        return followed.union(own).order_by(Post.timestamp.desc())
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
